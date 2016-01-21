@@ -1,4 +1,32 @@
-'use strict';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: sun.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: sun.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
 /* creates a  new instance of the sun class,
    @constructor
 */
@@ -55,7 +83,7 @@ function calcTimeJulianCent(jd) {
  * @return {boolean} isLeapYear?
  */
 function isLeapYear(yr) {
-  return ((yr % 4 === 0 && yr % 100 !== 0) || yr % 400 === 0);
+  return ((yr % 4 === 0 &amp;&amp; yr % 100 !== 0) || yr % 400 === 0);
 }
 
 /**
@@ -67,7 +95,7 @@ function calcDoyFromJD(jd) {
   var z = Math.floor(jd + 0.5);
   var f = (jd + 0.5) - z;
   var A;
-  if (z < 2299161) {
+  if (z &lt; 2299161) {
     A = z;
   } else {
     var alpha = Math.floor((z - 1867216.25) / 36524.25);
@@ -78,7 +106,7 @@ function calcDoyFromJD(jd) {
   var D = Math.floor(365.25 * C);
   var E = Math.floor((B - D) / 30.6001);
   var day = B - D - Math.floor(30.6001 * E) + f;
-  var month = (E < 14) ? E - 1 : E - 13;
+  var month = (E &lt; 14) ? E - 1 : E - 13;
   var year = (month > 2) ? C - 4716 : C - 4715;
 
   var k = (isLeapYear(year) ? 1 : 2);
@@ -113,7 +141,7 @@ function calcGeomMeanLongSun(t) {
   while (L0 > 360.0) {
     L0 -= 360.0;
   }
-  while (L0 < 0.0) {
+  while (L0 &lt; 0.0) {
     L0 += 360.0;
   }
   return L0; // in degrees
@@ -251,16 +279,16 @@ function calcHourAngle(angle, lat, solarDec) {
 function isNumber(inputVal) {
   var oneDecimal = false;
   var inputStr = '' + inputVal;
-  for (var i = 0; i < inputStr.length; i++) {
+  for (var i = 0; i &lt; inputStr.length; i++) {
     var oneChar = inputStr.charAt(i);
-    if (i === 0 && (oneChar === '-' || oneChar === '+')) {
+    if (i === 0 &amp;&amp; (oneChar === '-' || oneChar === '+')) {
       continue;
     }
-    if (oneChar === '.' && !oneDecimal) {
+    if (oneChar === '.' &amp;&amp; !oneDecimal) {
       oneDecimal = true;
       continue;
     }
-    if (oneChar < '0' || oneChar > '9') {
+    if (oneChar &lt; '0' || oneChar > '9') {
       return false;
     }
   }
@@ -295,7 +323,7 @@ function calcSolNoon(jd, longitude, date) {
   var newt = calcTimeJulianCent(jd + solNoonOffset / 1440.0);
   eqTime = calcEquationOfTime(newt);
   var solNoonLocal = 720 - (longitude * 4) - eqTime; // in minutes
-  while (solNoonLocal < 0.0) {
+  while (solNoonLocal &lt; 0.0) {
     solNoonLocal += 1440.0;
   }
   while (solNoonLocal >= 1440.0) {
@@ -310,13 +338,13 @@ function calcSolNoon(jd, longitude, date) {
  * @return date
  */
 function dayString(jd) {
-  if ((jd < 900000) || (jd > 2817000)) {
+  if ((jd &lt; 900000) || (jd > 2817000)) {
     return 'error';
   } else {
     var z = Math.floor(jd + 0.5);
     var f = (jd + 0.5) - z;
     var A;
-    if (z < 2299161) {
+    if (z &lt; 2299161) {
       A = z;
     } else {
       var alpha = Math.floor((z - 1867216.25) / 36524.25);
@@ -327,7 +355,7 @@ function dayString(jd) {
     var D = Math.floor(365.25 * C);
     var E = Math.floor((B - D) / 30.6001);
     var day = B - D - Math.floor(30.6001 * E) + f;
-    var month = (E < 14) ? E - 1 : E - 13;
+    var month = (E &lt; 14) ? E - 1 : E - 13;
     var year = ((month > 2) ? C - 4716 : C - 4715);
     return new Date(Date.UTC(year, month - 1, day, 0, 0, 0));
   }
@@ -373,8 +401,8 @@ function calcSunriseSet(rise, angle, JD, date, latitude, longitude)
     } else { // no sunrise/set found
       var doy = calcDoyFromJD(JD);
       var jdy;
-      if (((latitude > 66.4) && (doy > 79) && (doy < 267)) ||
-        ((latitude < -66.4) && ((doy < 83) || (doy > 263)))) { //previous sunrise/next sunset
+      if (((latitude > 66.4) &amp;&amp; (doy > 79) &amp;&amp; (doy &lt; 267)) ||
+        ((latitude &lt; -66.4) &amp;&amp; ((doy &lt; 83) || (doy > 263)))) { //previous sunrise/next sunset
         jdy = calcJDofNextPrevRiseSet(!rise, rise, angle, JD, latitude, longitude);
         return dayString(jdy);
       } else { //previous sunset/next sunrise
@@ -408,3 +436,26 @@ function calcJDofNextPrevRiseSet(next, rise, type, JD, latitude, longitude) {
  * exports the sun object
  */
 module.exports = Sun;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Sun.html">Sun</a></li></ul><h3>Global</h3><ul><li><a href="global.html#calcDoyFromJD">calcDoyFromJD</a></li><li><a href="global.html#calcEccentricityEarthOrbit">calcEccentricityEarthOrbit</a></li><li><a href="global.html#calcEquationOfTime">calcEquationOfTime</a></li><li><a href="global.html#calcGeomMeanAnomalySun">calcGeomMeanAnomalySun</a></li><li><a href="global.html#calcGeomMeanLongSun">calcGeomMeanLongSun</a></li><li><a href="global.html#calcHourAngle">calcHourAngle</a></li><li><a href="global.html#calcJDofNextPrevRiseSet">calcJDofNextPrevRiseSet</a></li><li><a href="global.html#calcMeanObliquityOfEcliptic">calcMeanObliquityOfEcliptic</a></li><li><a href="global.html#calcObliquityCorrection">calcObliquityCorrection</a></li><li><a href="global.html#calcSolNoon">calcSolNoon</a></li><li><a href="global.html#calcSunApparentLong">calcSunApparentLong</a></li><li><a href="global.html#calcSunDeclination">calcSunDeclination</a></li><li><a href="global.html#calcSunEqOfCenter">calcSunEqOfCenter</a></li><li><a href="global.html#calcSunriseSet">calcSunriseSet</a></li><li><a href="global.html#calcSunriseSetUTC">calcSunriseSetUTC</a></li><li><a href="global.html#calcSunTrueLong">calcSunTrueLong</a></li><li><a href="global.html#calcTimeJulianCent">calcTimeJulianCent</a></li><li><a href="global.html#dayString">dayString</a></li><li><a href="global.html#degToRad">degToRad</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#getJD">getJD</a></li><li><a href="global.html#isLeapYear">isLeapYear</a></li><li><a href="global.html#isNumber">isNumber</a></li><li><a href="global.html#radToDeg">radToDeg</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Wed Jan 20 2016 19:38:37 GMT-0800 (PST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

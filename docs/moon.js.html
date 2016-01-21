@@ -1,4 +1,32 @@
-'use strict';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: moon.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: moon.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
 
 /* creates a  new instance of the moon class,
    @constructor
@@ -69,7 +97,7 @@ function getJD(date) {
 //   // Returns year, month, day, day of week, hours, minutes, seconds
 //   var Z = Math.floor(jd + 0.5);
 //   var F = jd + 0.5 - Z;
-//   if (Z < 2299161) {
+//   if (Z &lt; 2299161) {
 //     var A = Z;
 //   } else {
 //     var alpha = Math.floor((Z - 1867216.25) / 36524.25);
@@ -80,7 +108,7 @@ function getJD(date) {
 //   var D = Math.floor(365.25 * C);
 //   var E = Math.floor((B - D) / 30.6001);
 //   var d = B - D - Math.floor(30.6001 * E) + F;
-//   if (E < 14) {
+//   if (E &lt; 14) {
 //     var month = E - 1;
 //   } else {
 //     var month = E - 13;
@@ -189,7 +217,7 @@ function asind(c) {
  * @return arctangent of y/x
  */
 function atan2d(y, x) {
-  return (180.0 / Math.PI) * Math.atan(y / x) - 180.0 * (x < 0);
+  return (180.0 / Math.PI) * Math.atan(y / x) - 180.0 * (x &lt; 0);
 }
 
 // function anglestring(a, circle) {
@@ -203,10 +231,10 @@ function atan2d(y, x) {
 //     min = 0;
 //   }
 //   var anglestr = "";
-//   if (!circle) anglestr += (ar < 0 ? "-" : "+");
-//   if (circle) anglestr += ((Math.floor(deg) < 100) ? "0" : "");
-//   anglestr += ((Math.floor(deg) < 10) ? "0" : "") + Math.floor(deg);
-//   anglestr += ((min < 10) ? ":0" : ":") + (min);
+//   if (!circle) anglestr += (ar &lt; 0 ? "-" : "+");
+//   if (circle) anglestr += ((Math.floor(deg) &lt; 100) ? "0" : "");
+//   anglestr += ((Math.floor(deg) &lt; 10) ? "0" : "") + Math.floor(deg);
+//   anglestr += ((min &lt; 10) ? ":0" : ":") + (min);
 //   return anglestr;
 // }
 
@@ -339,7 +367,7 @@ function moonPos(date) {
   // Sums of periodic terms from table 45.A and 45.B
   var Sl = 0.0;
   var Sr = 0.0;
-  for (var i = 0; i < 60; i++) {
+  for (var i = 0; i &lt; 60; i++) {
     var Eterm = 1;
     if (Math.abs(T45AM[i]) === 1) Eterm = E;
     if (Math.abs(T45AM[i]) === 2) Eterm = E2;
@@ -347,7 +375,7 @@ function moonPos(date) {
     Sr += T45AR[i] * Eterm * cosd(rev(T45AD[i] * D + T45AM[i] * M + T45AMP[i] * MP + T45AF[i] * F));
   }
   var Sb = 0.0;
-  for (var i = 0; i < 60; i++) {
+  for (var i = 0; i &lt; 60; i++) {
     var Eterm = 1;
     if (Math.abs(T45BM[i]) === 1) Eterm = E;
     if (Math.abs(T45BM[i]) === 2) Eterm = E2;
@@ -388,7 +416,7 @@ function moonPos(date) {
 //   // elh is the elevation at the hour elhdone is true if elh calculated
 //   var elh = [];
 //   var elhdone = [];
-//   for (var i = 0; i <= 24; i++) {
+//   for (var i = 0; i &lt;= 24; i++) {
 //     elhdone[i] = false;
 //   }
 //   // Compute the moon elevation at start and end of day
@@ -409,7 +437,7 @@ function moonPos(date) {
 //   elh[24] = altaz[0];
 //   elhdone[24] = true;
 //   // search for moonrise and set
-//   for (var rise = 0; rise < 2; rise++) {
+//   for (var rise = 0; rise &lt; 2; rise++) {
 //     var found = false;
 //     var hfirst = 0;
 //     var hlast = 24;
@@ -423,14 +451,14 @@ function moonPos(date) {
 //         elh[hmid] = altaz[0];
 //         elhdone[hmid] = true;
 //       }
-//       if (((rise === 0) && (elh[hfirst] <= 0.0) && (elh[hmid] >= 0.0)) ||
-//         ((rise === 1) && (elh[hfirst] >= 0.0) && (elh[hmid] <= 0.0))) {
+//       if (((rise === 0) &amp;&amp; (elh[hfirst] &lt;= 0.0) &amp;&amp; (elh[hmid] >= 0.0)) ||
+//         ((rise === 1) &amp;&amp; (elh[hfirst] >= 0.0) &amp;&amp; (elh[hmid] &lt;= 0.0))) {
 //         hlast = hmid;
 //         found = true;
 //         continue;
 //       }
-//       if (((rise === 0) && (elh[hmid] <= 0.0) && (elh[hlast] >= 0.0)) ||
-//         ((rise === 1) && (elh[hmid] >= 0.0) && (elh[hlast] <= 0.0))) {
+//       if (((rise === 0) &amp;&amp; (elh[hmid] &lt;= 0.0) &amp;&amp; (elh[hlast] >= 0.0)) ||
+//         ((rise === 1) &amp;&amp; (elh[hmid] >= 0.0) &amp;&amp; (elh[hlast] &lt;= 0.0))) {
 //         hfirst = hmid;
 //         found = true;
 //         continue;
@@ -439,7 +467,7 @@ function moonPos(date) {
 //     }
 //     // If the binary chop did not find a 1 hour interval
 //     if ((hlast - hfirst) > 1) {
-//       for (var i = hfirst; i < hlast; i++) {
+//       for (var i = hfirst; i &lt; hlast; i++) {
 //         found = false;
 //         if (!elhdone[i + 1]) {
 //           hours = i + 1;
@@ -448,8 +476,8 @@ function moonPos(date) {
 //           elh[hours] = altaz[0];
 //           elhdone[hours] = true;
 //         }
-//         if (((rise === 0) && (elh[i] <= 0.0) && (elh[i + 1] >= 0.0)) ||
-//           ((rise === 1) && (elh[i] >= 0.0) && (elh[i + 1] <= 0.0))) {
+//         if (((rise === 0) &amp;&amp; (elh[i] &lt;= 0.0) &amp;&amp; (elh[i + 1] >= 0.0)) ||
+//           ((rise === 1) &amp;&amp; (elh[i] >= 0.0) &amp;&amp; (elh[i + 1] &lt;= 0.0))) {
 //           hfirst = i;
 //           hlast = i + 1;
 //           found = true;
@@ -465,19 +493,19 @@ function moonPos(date) {
 //       rad = MoonPos(year, month, day, hours - TZ);
 //       altaz = radtoaa(rad[0], rad[1], year, month, day, hours - TZ, latitude, longitude);
 //       // alert("day ="+day+" hour ="+hours+" altaz="+altaz[0]+" "+altaz[1]);
-//       if ((rise == 0) && (altaz[0] <= 0.0)) {
+//       if ((rise == 0) &amp;&amp; (altaz[0] &lt;= 0.0)) {
 //         hfirst = hours;
 //         elfirst = altaz[0];
 //       }
-//       if ((rise == 0) && (altaz[0] > 0.0)) {
+//       if ((rise == 0) &amp;&amp; (altaz[0] > 0.0)) {
 //         hlast = hours;
 //         ellast = altaz[0];
 //       }
-//       if ((rise == 1) && (altaz[0] <= 0.0)) {
+//       if ((rise == 1) &amp;&amp; (altaz[0] &lt;= 0.0)) {
 //         hlast = hours;
 //         ellast = altaz[0];
 //       }
-//       if ((rise === 1) && (altaz[0] > 0.0)) {
+//       if ((rise === 1) &amp;&amp; (altaz[0] > 0.0)) {
 //         hfirst = hours;
 //         elfirst = altaz[0];
 //       }
@@ -571,7 +599,7 @@ function moonPhase(date) {
 //   A[7] = rev(A[7] + 2.453732 * 0.25);
 
 //   JDE = JDE - 0.62801 * sind(MP) + 0.17172 * E * sind(M) - 0.01183 * E * sind(MP + M) + 0.00862 * sind(2 * MP) + 0.00804 * sind(2 * F) + 0.00454 * E * sind(MP - M) + 0.00204 * E * E * sind(2 * M) - 0.00180 * sind(MP - 2 * F) - 0.00070 * sind(MP + 2 * F) - 0.00040 * sind(3 * MP) - 0.00034 * E * sind(2 * MP - M) + 0.00032 * E * sind(M + 2 * F) + 0.00032 * E * sind(M - 2 * F) - 0.00028 * E * E * sind(MP + 2 * M) + 0.00027 * E * sind(2 * MP + M) - 0.00017 * sind(Omega);
-//   // Next term is w add for first quarter & subtract for second
+//   // Next term is w add for first quarter &amp; subtract for second
 //   JDE = JDE + (0.00306 - 0.00038 * E * cosd(M) + 0.00026 * cosd(MP) - 0.00002 * cosd(MP - M) + 0.00002 * cosd(MP + M) + 0.00002 * cosd(2 * F));
 
 //   quarters[1] = JDE + 0.000325 * sind(A[1]) + 0.000165 * sind(A[2]) + 0.000164 * sind(A[3]) + 0.000126 * sind(A[4]) + 0.000110 * sind(A[5]) + 0.000062 * sind(A[6]) + 0.000060 * sind(A[7]);
@@ -611,7 +639,7 @@ function moonPhase(date) {
 //   A[7] = rev(A[7] + 2.453732 * 0.25);
 
 //   JDE = JDE - 0.62801 * sind(MP) + 0.17172 * E * sind(M) - 0.01183 * E * sind(MP + M) + 0.00862 * sind(2 * MP) + 0.00804 * sind(2 * F) + 0.00454 * E * sind(MP - M) + 0.00204 * E * E * sind(2 * M) - 0.00180 * sind(MP - 2 * F) - 0.00070 * sind(MP + 2 * F) - 0.00040 * sind(3 * MP) - 0.00034 * E * sind(2 * MP - M) + 0.00032 * E * sind(M + 2 * F) + 0.00032 * E * sind(M - 2 * F) - 0.00028 * E * E * sind(MP + 2 * M) + 0.00027 * E * sind(2 * MP + M) - 0.00017 * sind(Omega);
-//   // Next term is w add for first quarter & subtract for second
+//   // Next term is w add for first quarter &amp; subtract for second
 //   JDE = JDE - (0.00306 - 0.00038 * E * cosd(M) + 0.00026 * cosd(MP) - 0.00002 * cosd(MP - M) + 0.00002 * cosd(MP + M) + 0.00002 * cosd(2 * F));
 
 //   quarters[3] = JDE + 0.000325 * sind(A[1]) + 0.000165 * sind(A[2]) + 0.000164 * sind(A[3]) + 0.000126 * sind(A[4]) + 0.000110 * sind(A[5]) + 0.000062 * sind(A[6]) + 0.000060 * sind(A[7]);
@@ -623,3 +651,26 @@ function moonPhase(date) {
  * exports the moon object
  */
 module.exports = Moon;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Moon.html">Moon</a></li></ul><h3>Global</h3><ul><li><a href="global.html#asind">asind</a></li><li><a href="global.html#atan2d">atan2d</a></li><li><a href="global.html#cosd">cosd</a></li><li><a href="global.html#getJD">getJD</a></li><li><a href="global.html#moonPhase">moonPhase</a></li><li><a href="global.html#moonPos">moonPos</a></li><li><a href="global.html#rev">rev</a></li><li><a href="global.html#sind">sind</a></li><li><a href="global.html#T45AD">T45AD</a></li><li><a href="global.html#T45BD">T45BD</a></li><li><a href="global.html#tand">tand</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Wed Jan 20 2016 19:39:25 GMT-0800 (PST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
