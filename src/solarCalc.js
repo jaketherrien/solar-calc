@@ -37,79 +37,117 @@ class SolarCalc {
     this.sun = new Sun(date, latitude, longitude);
     this.moon = new Moon(date, latitude, longitude);
   }
-
+/**
+ * @return solarNoon
+ */
   get solarNoon() {
     return this.sun.solarNoon;
   }
-
+/**
+ * @return sunrise time
+ */
   get sunrise() {
     return this.sun.timeAtAngle(degreesBelowHorizon.sunrise, true);
   }
-
+/**
+ * @return sunset time
+ */
   get sunset() {
     return this.sun.timeAtAngle(degreesBelowHorizon.sunrise);
   }
-
+/**
+ * @return sunrise end time
+ */
   get sunriseEnd() {
     return this.sun.timeAtAngle(degreesBelowHorizon.sunriseEnd, true);
   }
-
+/**
+ * @return sunset start time
+ */
   get sunsetStart() {
     return this.sun.timeAtAngle(degreesBelowHorizon.sunriseEnd, false);
   }
-
+/**
+ * @return civil dawn time
+ */
   get civilDawn() {
     return this.sun.timeAtAngle(degreesBelowHorizon.twilight, true);
   }
-
+/**
+ * @return dawn
+ */
   get dawn() {
     return this.civilDawn;
   }
-
+/**
+ * @return civil dusk time
+ */
   get civilDusk() {
     return this.sun.timeAtAngle(degreesBelowHorizon.twilight, false);
   }
-
+/**
+ * @return civil dusk
+ */
   get dusk() {
     return this.civilDusk;
   }
-
+/**
+ * @return nautical dawn time
+ */
   get nauticalDawn() {
     return this.sun.timeAtAngle(degreesBelowHorizon.nauticalTwilight, true);
   }
-
+/**
+ * @return nautical dusk time
+ */
   get nauticalDusk() {
     return this.sun.timeAtAngle(degreesBelowHorizon.nauticalTwilight, false);
   }
-
+/**
+ * @return start of night
+ */
   get nightStart() {
     return this.astronomicalDusk;
   }
-
+/**
+ * @return night time
+ */
   get astronomicalDusk() {
     return this.sun.timeAtAngle(degreesBelowHorizon.night, false);
   }
-
+/**
+ * @return astronomical dawn time
+ */
   get astronomicalDawn() {
     return this.sun.timeAtAngle(degreesBelowHorizon.night, true);
   }
-
+/**
+ * @return night end
+ */
   get nightEnd() {
     return this.astronomicalDawn;
   }
-
+/**
+ * @return golden hour start time
+ */
   get goldenHourStart() {
     return this.sun.timeAtAngle(degreesBelowHorizon.goldenHour, false);
   }
-
+/**
+ * @return golden hour end time
+ */
   get goldenHourEnd() {
     return this.sun.timeAtAngle(degreesBelowHorizon.goldenHour, true);
   }
-
+/**
+ * @return distance from moon
+ */
   get lunarDistance() {
     return this.moon.distance;
   }
-
+/**
+ * @return illuminosity of moon
+ */
   get lunarIlluminosity() {
     return this.moon.illuminosity;
   }
